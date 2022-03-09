@@ -16,6 +16,8 @@ use serde::{Deserialize, Serialize};
 
 pub type Key = String;
 
+
+
 #[allow(dead_code)]
 pub const AES_KEY_BYTES_LEN: usize = 32;
 
@@ -187,6 +189,16 @@ pub fn poll_for_p2p(
         }
     }
     ans_vec
+}
+
+
+pub fn get_keygen_num(client: &Client, keygen_uuid: &str) -> Result<u16,()> {
+    let key =  keygen_uuid.to_string();
+    let index = Index { key };
+    let res_body = postb(client, "get", index.clone()).unwrap();
+    let answer: Result<Entry, ()> = serde_json::from_str(&res_body).unwrap();
+    let party_signup: PartySignup = serde_json::from_str(&answer.unwrap().value).unwrap();
+    Ok(party_signup.number)
 }
 
 #[allow(dead_code)]
