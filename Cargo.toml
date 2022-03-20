@@ -89,6 +89,12 @@ name = "gg18_sign_client"
 name = "gg18_keygen_client"
 
 [[example]]
+name = "gg18_sign_client_multi_threads"
+
+[[example]]
+name = "gg18_sign_client_buffer"
+
+[[example]]
 name = "gg18_keygen_client_multi_threads"
 
 [[example]]
