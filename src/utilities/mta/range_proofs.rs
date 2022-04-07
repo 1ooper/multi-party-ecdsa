@@ -19,6 +19,7 @@ use paillier::{EncryptionKey, Randomness};
 use zk_paillier::zkproofs::DLogStatement;
 
 use serde::{Deserialize, Serialize};
+use minicbor::{Encode, Decode};
 use std::borrow::Borrow;
 use zeroize::Zeroize;
 
@@ -91,13 +92,13 @@ impl AliceZkpRound2 {
 }
 
 /// Alice's proof
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, Encode, Decode)]
 pub struct AliceProof {
-    z: BigInt,
-    e: BigInt,
-    s: BigInt,
-    s1: BigInt,
-    s2: BigInt,
+  #[n(0)]  z: BigInt,
+  #[n(1)]  e: BigInt,
+  #[n(2)]  s: BigInt,
+  #[n(3)]  s1: BigInt,
+  #[n(4)]  s2: BigInt,
 }
 
 impl AliceProof {

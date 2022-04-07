@@ -25,23 +25,24 @@ use paillier::{DecryptionKey, EncryptionKey, Paillier, Randomness, RawCiphertext
 use zk_paillier::zkproofs::DLogStatement;
 
 use serde::{Deserialize, Serialize};
+use minicbor::{Encode, Decode};
 use sha2::Sha256;
 
 use crate::protocols::multi_party_ecdsa::gg_2018::party_i::PartyPrivate;
 use crate::utilities::mta::range_proofs::AliceProof;
 use crate::Error::{self, InvalidKey};
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, Serialize, Deserialize, Encode, Decode)]
 pub struct MessageA {
-    pub c: BigInt,                     // paillier encryption
-    pub range_proofs: Vec<AliceProof>, // proofs (using other parties' h1,h2,N_tilde) that the plaintext is small
+    #[n(0)] pub c: BigInt,                     // paillier encryption
+    #[n(1)] pub range_proofs: Vec<AliceProof>, // proofs (using other parties' h1,h2,N_tilde) that the plaintext is small
 }
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, Serialize, Deserialize, Encode, Decode)]
 pub struct MessageB {
-    pub c: BigInt, // paillier encryption
-    pub b_proof: DLogProof<Secp256k1, Sha256>,
-    pub beta_tag_proof: DLogProof<Secp256k1, Sha256>,
+   #[n(0)] pub c: BigInt, // paillier encryption
+   #[n(1)] pub b_proof: DLogProof<Secp256k1, Sha256>,
+   #[n(2)] pub beta_tag_proof: DLogProof<Secp256k1, Sha256>,
 }
 
 impl MessageA {

@@ -41,6 +41,7 @@ round-based = { version = "0.1.4", features = [] }
 thiserror = "1.0.23"
 derivative = "2"
 sha2 = "0.9"
+minicbor = {version = "0.15.0" , features = ["derive", "partial-derive-support"]}
 
 [dependencies.paillier]
 version = "0.4.2"
@@ -51,6 +52,9 @@ default-features = false
 version = "0.6"
 default-features = false
 optional = true
+
+[patch.crates-io]
+curv-kzen = {path = "../curv"}
 
 [dev-dependencies]
 criterion = "0.3"

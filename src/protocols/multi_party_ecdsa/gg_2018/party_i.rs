@@ -36,6 +36,7 @@ use sha2::Sha256;
 use zk_paillier::zkproofs::NiCorrectKeyProof;
 
 use serde::{Deserialize, Serialize};
+use minicbor::{Encode, Decode};
 
 use crate::Error::{self, InvalidCom, InvalidKey, InvalidSS, InvalidSig};
 
@@ -91,15 +92,15 @@ pub struct SignKeys {
     pub g_gamma_i: Point<Secp256k1>,
 }
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, Serialize, Deserialize, Encode, Decode)]
 pub struct SignBroadcastPhase1 {
-    pub com: BigInt,
+    #[n(0)]pub com: BigInt,
 }
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, Serialize, Deserialize, Encode, Decode)]
 pub struct SignDecommitPhase1 {
-    pub blind_factor: BigInt,
-    pub g_gamma_i: Point<Secp256k1>,
+    #[n(0)] pub blind_factor: BigInt,
+    #[n(1)] pub g_gamma_i: Point<Secp256k1>,
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
@@ -112,29 +113,29 @@ pub struct LocalSignature {
     pub y: Point<Secp256k1>,
 }
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, Serialize, Deserialize, Encode, Decode)]
 pub struct Phase5Com1 {
-    pub com: BigInt,
+    #[n(0)] pub com: BigInt,
 }
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, Serialize, Deserialize, Encode, Decode)]
 pub struct Phase5Com2 {
-    pub com: BigInt,
+    #[n(0)] pub com: BigInt,
 }
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, Serialize, Deserialize, Encode, Decode)]
 pub struct Phase5ADecom1 {
-    pub V_i: Point<Secp256k1>,
-    pub A_i: Point<Secp256k1>,
-    pub B_i: Point<Secp256k1>,
-    pub blind_factor: BigInt,
+   #[n(0)] pub V_i: Point<Secp256k1>,
+   #[n(1)] pub A_i: Point<Secp256k1>,
+   #[n(2)] pub B_i: Point<Secp256k1>,
+   #[n(3)] pub blind_factor: BigInt,
 }
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, Serialize, Deserialize, Encode, Decode)]
 pub struct Phase5DDecom2 {
-    pub u_i: Point<Secp256k1>,
-    pub t_i: Point<Secp256k1>,
-    pub blind_factor: BigInt,
+   #[n(0)] pub u_i: Point<Secp256k1>,
+   #[n(1)] pub t_i: Point<Secp256k1>,
+   #[n(2)] pub blind_factor: BigInt,
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
