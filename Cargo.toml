@@ -54,7 +54,7 @@ default-features = false
 optional = true
 
 [patch.crates-io]
-curv-kzen = {path = "../curv"}
+curv-kzen = {git = "https://github.com/1ooper/curv", branch = "cbor"}
 
 [dev-dependencies]
 criterion = "0.3"
